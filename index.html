@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system preview</title>
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('theme'); } catch (e) {}
+  if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* preview-only layout; every value is a token */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); }
+  .swatch { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-xs); }
+  .swatch__chip { height: 48px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  section > h2 { margin-bottom: var(--space-4); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="site-header">
+  <a class="brand" href="#"><span class="mark" aria-hidden="true">Q</span>[Site name]</a>
+  <nav class="nav" aria-label="Main">
+    <a href="#sprints" aria-current="page">Sprints</a>
+    <a href="#replays">Replays</a>
+    <a href="#crew">The crew</a>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7Z"/></svg>
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M12.6 3.4l-1 1M4.4 11.6l-1 1"/></svg>
+    </button>
+  </nav>
+</header>
+
+<section class="card">
+  <div class="card__head"><h1>Sprint 10</h1><span class="meta">Closed 29 September</span></div>
+  <div class="card__body">
+    <div class="stats">
+      <div class="stat"><span class="stat__value">40</span><span class="stat__label">points delivered</span></div>
+      <div class="stat"><span class="stat__value">16</span><span class="stat__label">stories done</span></div>
+      <div class="stat"><span class="stat__value">0</span><span class="stat__label">escalations</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card__head card__head--stacked"><span class="meta">Replay · sprint-metrics</span><h2>#307 · Add ENTRYPOINT ["sprint-metrics"] to the Dockerfile</h2></div>
+  <div class="card__body">
+    <ol class="path" aria-label="Stages">
+      <li class="path__step" data-stage="1">Refined</li>
+      <li class="path__step" data-stage="2">Built</li>
+      <li class="path__step" data-stage="3">Reviewed</li>
+      <li class="path__step" data-stage="4">QA</li>
+      <li class="path__step" data-stage="5">Merged</li>
+    </ol>
+    <ol class="events">
+      <li class="event"><span class="event__time">12:39</span><span class="badge" data-tone="blocked">Blocked</span><span class="event__text">A CI change had to travel alone</span></li>
+      <li class="event"><span class="event__time">15:40</span><span class="badge" data-tone="active">Delivered</span><span class="event__text">Re-delivered as PR #330</span></li>
+      <li class="event"><span class="event__time">15:50</span><span class="badge" data-tone="held">Returned</span><span class="event__text">Server bound to loopback</span></li>
+      <li class="event"><span class="event__time">16:04</span><span class="badge" data-tone="done">Approved</span><span class="event__text">Fixed in the same PR, merged</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <h2>A story in progress</h2>
+  <ol class="path" aria-label="Stages, three of five reached">
+    <li class="path__step" data-stage="1">Refined</li>
+    <li class="path__step" data-stage="2">Built</li>
+    <li class="path__step" data-stage="3">Reviewed</li>
+    <li class="path__step">QA</li>
+    <li class="path__step">Merged</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Board cards</h2>
+  <div class="cards">
+    <div class="card card--padded"><span class="badge" data-tone="active">In Progress</span><span>Add the scrape service reachability check to the docker CI job</span><span class="meta num">#339</span></div>
+    <div class="card card--padded"><span class="badge" data-tone="held">Held</span><span>Cut the 1.0.0 release</span><span class="meta num">#293 · waits on #304, #306</span></div>
+    <div class="card card--padded"><span class="badge">Ready</span><span>Document running scrape mode in a container in docs/scrape.md</span><span class="meta num">#297</span></div>
+    <div class="card card--padded"><span class="badge" data-tone="done">Done</span><span>Add ENTRYPOINT ["sprint-metrics"] to the Dockerfile and update CI and tests to rely on it</span><span class="meta num">#307</span></div>
+  </div>
+</section>
+
+<section class="card card--padded">
+  <div class="agent">
+    <div class="avatar" aria-hidden="true">DE</div>
+    <div class="agent__body">
+      <div class="row"><span class="agent__name">DevOps Engineer</span><span class="meta">Deploy review · PR #330</span></div>
+      <p class="quote">serve.py binds 127.0.0.1, so a published port can’t reach it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="feature">
+  <h2>Decided by the crew</h2>
+  <p>The Architect revised the design into seven modules, the crew merged it, and filed two technical epics. <span class="feature__em">No one was asked.</span></p>
+  <span class="meta num">23:37 · Architect · design revision PR #122</span>
+</section>
+
+<section>
+  <h2>Buttons and code</h2>
+  <div class="row">
+    <button class="btn btn--primary" type="button">Play the replay</button>
+    <button class="btn" type="button">Skip idle</button>
+    <a class="btn" href="#">All sprints</a>
+  </div>
+  <pre class="code" style="margin-top: var(--space-4)">the change doesn't apply: no definition named 'DEFAULT_THRESHOLDS'</pre>
+</section>
+
+<section>
+  <h2>Colour</h2>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-bg)"></div>--color-bg</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-surface)"></div>--color-surface</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-surface-raised)"></div>--color-surface-raised</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-text)"></div>--color-text</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-text-dim)"></div>--color-text-dim</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-accent)"></div>--color-accent</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--color-feature-bg)"></div>--color-feature-bg</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--stage-1)"></div>--stage-1</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--stage-2)"></div>--stage-2</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--stage-3)"></div>--stage-3</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--stage-4)"></div>--stage-4</div>
+    <div class="swatch"><div class="swatch__chip" style="background: var(--stage-5)"></div>--stage-5</div>
+  </div>
+  <div class="row" style="margin-top: var(--space-4)">
+    <span class="badge">Ready</span>
+    <span class="badge" data-tone="active">QAing</span>
+    <span class="badge" data-tone="held">Held</span>
+    <span class="badge" data-tone="done">Done</span>
+    <span class="badge" data-tone="blocked">Blocked</span>
+  </div>
+</section>
+
+</div>
+<script>
+(function () {
+  var root = document.documentElement, toggle = document.querySelector('.theme-toggle');
+  function label() { toggle.setAttribute('aria-label', 'Switch to ' + (root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark') + ' theme'); }
+  label();
+  toggle.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    label();
+  });
+})();
+</script>
+</body>
+</html>
